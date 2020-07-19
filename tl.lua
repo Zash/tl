@@ -2031,13 +2031,15 @@ local function parse_statement(ps, i)
          return parse_variable_declarations(ps, i, "local_declaration")
       end
    elseif ps.tokens[i].tk == "global" then
-      i = i + 1
       if ps.tokens[i + 1].tk == "type" then
          return parse_type_declaration(ps, i, "global_type")
-      elseif ps.tokens[i].tk == "function" then
+      elseif ps.tokens[i + 1].tk == "function" then
+         i = i + 1
          return parse_function(ps, i)
+      else
+         i = i + 1
+         return parse_variable_declarations(ps, i, "global_declaration")
       end
-      return parse_variable_declarations(ps, i, "global_declaration")
    elseif ps.tokens[i].tk == "function" then
       return parse_function(ps, i)
    elseif ps.tokens[i].tk == "if" then
