@@ -135,7 +135,7 @@ for _, c in ipairs({" ", "\t", "\v", "\n", "\r"}) do
    lex_space[c] = true
 end
 
-local LexState = enum
+local type LexState = enum
    "start"
    "any"
    "identifier"
@@ -672,7 +672,7 @@ local type ParseError = record
    filename: string
 end
 
-local TypeName = enum
+local type TypeName = enum
    "typetype"
    "nestedtype"
    "typevar"
@@ -6611,7 +6611,7 @@ function tl.loader()
    end
 end
 
-local LoadMode = enum
+local type LoadMode = enum
    "b"
    "t"
    "bt"
