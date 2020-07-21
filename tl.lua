@@ -5599,14 +5599,6 @@ function tl.type_check(ast, opts)
       return UNKNOWN
    end
 
-   local function put_newtype_name_in_scope(node)
-      if node.exps and node.exps[1] and node.exps[1].kind == "newtype" then
-         local t = node.exps[1].newtype.def
-         local var = node.vars[1]
-         add_var(var, var.tk, node.exps[1].newtype, var.is_const)
-      end
-   end
-
    local visit_node = {}
 
    visit_node.cbs = {
@@ -5659,9 +5651,6 @@ function tl.type_check(ast, opts)
          end,
       },
       ["local_declaration"] = {
-         before = function(node)
-            put_newtype_name_in_scope(node)
-         end,
          after = function(node, children)
             local vals = get_assignment_values(children[2], #node.vars)
             for i, var in ipairs(node.vars) do
@@ -5696,9 +5685,6 @@ function tl.type_check(ast, opts)
          end,
       },
       ["global_declaration"] = {
-         before = function(node)
-            put_newtype_name_in_scope(node)
-         end,
          after = function(node, children)
             local vals = get_assignment_values(children[2], #node.vars)
             for i, var in ipairs(node.vars) do
