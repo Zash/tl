@@ -427,9 +427,8 @@ do
 
    function build.run(tlconfig)
       local function remove_leading_path(leading_part, path)
-         local s, e = path:find("^" .. leading_part .. PATH_SEPARATOR .. "?")
-         if s then
-            return path:sub(e+1, -1)
+         if path:sub(1, 1+#leading_part) == leading_part..path_separator then
+            return path:sub(#leading_part+2)
          end
          return path
       end
