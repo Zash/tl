@@ -813,7 +813,7 @@ local function get_args_parser()
 
    parser:option("--global-env-def", "Predefined types from a custom global environment.")
          :argname("<dtlfilename>")
-         :count("*") -- count("1") does not work? we verify by hand below then
+         :count("?") -- count("1") does not work? we verify by hand below then
 
    parser:option("-I --include-dir", "Prepend this directory to the module search path.")
          :argname("<directory>")
@@ -946,10 +946,7 @@ local function merge_config_and_args(tlconfig, args)
    end
 
    if args["global_env_def"] then
-      if #args["global_env_def"] > 1 then
-         die("Error: --global-env-def can be used only once.")
-      end
-      tlconfig["global_env_def"] = args["global_env_def"][1]
+      tlconfig["global_env_def"] = args["global_env_def"]
    end
 
    for _, include_dir_cli in ipairs(args["include_dir"]) do
