@@ -9,14 +9,14 @@ describe("assignment to multiple variables", function()
       print(b .. " right!")
    ]])
 
-   it("reports unsufficient rvalues as an error, simple", util.check_type_error([[
+   it("reports insufficient rvalues as an error, simple", util.check_type_error([[
       local a, b = 1, 2
       a, b = 3
    ]], {
       { msg = "variable is not being assigned a value" }
    }))
 
-   it("reports unsufficient rvalues as an error, tricky", util.check_type_error([[
+   it("reports insufficient rvalues as an error, tricky", util.check_type_error([[
       local type T = record
          x: number
          y: number

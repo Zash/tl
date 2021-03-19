@@ -51,7 +51,7 @@ describe("forin", function()
    end)
 
    describe("pairs", function()
-      it("rejects heterogenous records in pairs", util.check_type_error([[
+      it("rejects heterogeneous records in pairs", util.check_type_error([[
          local type Rec = record
             n: number
             fun: function(number, number)

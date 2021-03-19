@@ -962,7 +962,7 @@ local record Type
    yend: integer
    xend: integer
 
-   -- Lua compatibilty
+   -- Lua compatibility
    needs_compat: boolean
 
    -- tuple

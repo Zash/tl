@@ -79,7 +79,7 @@ describe("build.tl", function()
          },
       })
    end)
-   it("can have a diffrent name by setting build_file", function()
+   it("can have a different name by setting build_file", function()
       util.run_mock_project(finally, {
          dir_structure = {
             ["tlconfig.lua"] = [[return {
