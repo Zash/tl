@@ -803,6 +803,9 @@ local function read_simple_type_or_nominal(ps, i)
       typ = new_nominal(ps, i - 1, nil)
       typ[BLOCK_INDEXES.NOMINAL_TYPE.NAME] = { f = ps.filename, y = dtk.y, x = dtk.x, kind = "macro_var", [BLOCK_INDEXES.MACRO_VAR.NAME] = ident, tk = "$" }
    else
+      if ps.tokens[i].kind ~= "identifier" then
+         return fail(ps, i, "syntax error, expected identifier")
+      end
       typ = new_nominal(ps, i, tk)
       i = i + 1
    end
@@ -1605,7 +1608,7 @@ local function read_argument(ps, i)
          table.insert(node, argtype)
       end
    end
-   if has_question then
+   if node and has_question then
       table.insert(node, new_block(ps, q_i, "question"))
    end
    return i, node, 0
@@ -2020,7 +2023,7 @@ read_interface_name = function(ps, i)
 
 
    i, typ = read_simple_type_or_nominal(ps, i)
-   if typ.kind ~= "nominal_type" then
+   if (not typ) or typ.kind ~= "nominal_type" then
       return fail(ps, istart, "expected an interface")
    end
 
